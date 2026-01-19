@@ -72,7 +72,7 @@ export default function Header() {
         {/* КНОПКА TELEGRAM - ПРАВАЯ ЧАСТЬ */}
         <div className="header-right hidden md:flex">
           <a
-            href="https://t.me/username"
+            href="https://t.me/m/V0FK56BWNTIy"
             target="_blank"
             rel="noopener noreferrer"
             className="telegram-button"
@@ -122,7 +122,7 @@ export default function Header() {
               Контакты
             </button>
             <a
-              href="https://t.me/username"
+              href="https://t.me/m/V0FK56BWNTIy"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 text-white px-5 py-3 rounded-lg font-semibold

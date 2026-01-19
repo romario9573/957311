@@ -82,7 +82,7 @@ export default function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <a
-            href="https://t.me/username"
+            href="https://t.me/m/V0FK56BWNTIy"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 text-white px-8 py-3.5 rounded-xl font-semibold text-base
