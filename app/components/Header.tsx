@@ -34,7 +34,7 @@ export default function Header() {
       }}
     >
       <div className="header-container">
-        {/* ЛОГОТИП - ЛЕВАЯ ЧАСТЬ */}
+        {/* ЛОГОТИП - ВСЕГДА СЛЕВА */}
         <div className="header-left">
           <button
             onClick={() => scrollToSection("hero")}
@@ -53,7 +53,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* НАВИГАЦИЯ - ЦЕНТРАЛЬНАЯ ЧАСТЬ (только десктоп) */}
+        {/* НАВИГАЦИЯ - ЦЕНТР (только десктоп >= 768px) */}
         <nav className="header-center hidden md:flex">
           <button
             onClick={() => scrollToSection("about")}
@@ -81,7 +81,7 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* КНОПКА TELEGRAM - ПРАВАЯ ЧАСТЬ (только десктоп) */}
+        {/* КНОПКА TELEGRAM - СПРАВА (только десктоп >= 768px) */}
         <div className="header-right hidden md:flex">
           <a
             href="https://t.me/m/V0FK56BWNTIy"
@@ -95,19 +95,8 @@ export default function Header() {
           </a>
         </div>
 
-        {/* МОБИЛЬНАЯ ВЕРСИЯ - Кнопка Telegram + Гамбургер */}
+        {/* ГАМБУРГЕР - СПРАВА (только мобильные < 768px) */}
         <div className="header-mobile md:hidden">
-          <a
-            href="https://t.me/m/V0FK56BWNTIy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="telegram-button-mobile"
-            aria-label="Написать в Telegram"
-          >
-            <FaTelegram className="text-lg" />
-            <span>Telegram</span>
-          </a>
-          
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="hamburger-button"
@@ -156,6 +145,18 @@ export default function Header() {
               >
                 Контакты
               </button>
+              
+              {/* Кнопка Telegram в меню */}
+              <a
+                href="https://t.me/m/V0FK56BWNTIy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mobile-menu-telegram"
+                aria-label="Написать в Telegram"
+              >
+                <FaTelegram className="text-xl" />
+                Написать в Telegram
+              </a>
             </nav>
           </div>
         </>
