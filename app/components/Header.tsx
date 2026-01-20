@@ -1,10 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaTelegram, FaBars, FaTimes } from "react-icons/fa";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Блокировка скролла при открытом меню
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -41,7 +53,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* НАВИГАЦИЯ - ЦЕНТРАЛЬНАЯ ЧАСТЬ */}
+        {/* НАВИГАЦИЯ - ЦЕНТРАЛЬНАЯ ЧАСТЬ (только десктоп) */}
         <nav className="header-center hidden md:flex">
           <button
             onClick={() => scrollToSection("about")}
@@ -69,7 +81,7 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* КНОПКА TELEGRAM - ПРАВАЯ ЧАСТЬ */}
+        {/* КНОПКА TELEGRAM - ПРАВАЯ ЧАСТЬ (только десктоп) */}
         <div className="header-right hidden md:flex">
           <a
             href="https://t.me/m/V0FK56BWNTIy"
@@ -83,58 +95,70 @@ export default function Header() {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-white text-2xl ml-auto"
-          aria-label="Открыть меню"
-        >
-          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </button>
+        {/* МОБИЛЬНАЯ ВЕРСИЯ - Кнопка Telegram + Гамбургер */}
+        <div className="header-mobile md:hidden">
+          <a
+            href="https://t.me/m/V0FK56BWNTIy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="telegram-button-mobile"
+            aria-label="Написать в Telegram"
+          >
+            <FaTelegram className="text-lg" />
+            <span>Telegram</span>
+          </a>
+          
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="hamburger-button"
+            aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ПОЛНОЭКРАННОЕ МОБИЛЬНОЕ МЕНЮ */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-dark border-t border-white/10">
-          <div className="flex flex-col p-4 gap-4">
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-white/70 hover:text-white transition-colors duration-200 text-left py-2"
-            >
-              О себе
-            </button>
-            <button
-              onClick={() => scrollToSection("services")}
-              className="text-white/70 hover:text-white transition-colors duration-200 text-left py-2"
-            >
-              Услуги
-            </button>
-            <button
-              onClick={() => scrollToSection("cases")}
-              className="text-white/70 hover:text-white transition-colors duration-200 text-left py-2"
-            >
-              Кейсы
-            </button>
-            <button
-              onClick={() => scrollToSection("contacts")}
-              className="text-white/70 hover:text-white transition-colors duration-200 text-left py-2"
-            >
-              Контакты
-            </button>
-            <a
-              href="https://t.me/m/V0FK56BWNTIy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 text-white px-5 py-3 rounded-lg font-semibold
-                         transition-all duration-200"
-              style={{ backgroundColor: "#0088CC" }}
-              aria-label="Написать в Telegram"
-            >
-              <FaTelegram className="text-lg" />
-              Telegram
-            </a>
+        <>
+          {/* Overlay для закрытия меню при клике вне */}
+          <div 
+            className="mobile-menu-overlay"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          
+          {/* Само меню */}
+          <div className="mobile-menu">
+            <nav className="mobile-menu-nav">
+              <button
+                onClick={() => scrollToSection("about")}
+                className="mobile-menu-link"
+              >
+                О себе
+              </button>
+              <button
+                onClick={() => scrollToSection("services")}
+                className="mobile-menu-link"
+              >
+                Услуги
+              </button>
+              <button
+                onClick={() => scrollToSection("cases")}
+                className="mobile-menu-link"
+              >
+                Кейсы
+              </button>
+              <button
+                onClick={() => scrollToSection("contacts")}
+                className="mobile-menu-link"
+              >
+                Контакты
+              </button>
+            </nav>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
