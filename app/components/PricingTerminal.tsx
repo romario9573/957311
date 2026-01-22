@@ -148,11 +148,12 @@ export default function PricingTerminal() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "12px",
+            justifyContent: "space-between",
             padding: "12px 16px",
             background:
               "linear-gradient(to bottom, rgba(30, 30, 30, 1), rgba(20, 20, 20, 1))",
             borderBottom: "1px solid rgba(218, 164, 40, 0.2)",
+            position: "relative",
           }}
         >
           <div style={{ display: "flex", gap: "8px" }}>
@@ -183,6 +184,9 @@ export default function PricingTerminal() {
           </div>
           <span
             style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
               fontFamily: "var(--font-mono), 'Fira Code', 'Courier New', monospace",
               fontSize: "13px",
               color: "rgba(255, 255, 255, 0.6)",
@@ -190,6 +194,7 @@ export default function PricingTerminal() {
           >
             pricing.info
           </span>
+          <div style={{ width: "60px" }} /> {/* Spacer для симметрии */}
         </div>
 
         {/* Контент терминала */}
