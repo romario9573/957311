@@ -840,6 +840,8 @@ body {
   transform: scale(0.95);
 }
 
+/* ===== ПРЕМИАЛЬНОЕ МОБИЛЬНОЕ МЕНЮ - APPLE STYLE ===== */
+
 /* Overlay для мобильного меню */
 .mobile-menu-overlay {
   position: fixed;
@@ -848,21 +850,49 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 998;
-  animation: fadeIn 0.3s ease;
+  will-change: opacity;
 }
 
-@keyframes fadeIn {
+/* Анимация появления overlay */
+.mobile-menu-overlay-enter {
+  animation: overlayFadeIn 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* Анимация исчезновения overlay */
+.mobile-menu-overlay-exit {
+  animation: overlayFadeOut 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+@keyframes overlayFadeIn {
   from {
     opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
   }
   to {
     opacity: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 }
 
-/* Полноэкранное мобильное меню - APPLE STYLE */
+@keyframes overlayFadeOut {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+}
+
+/* Полноэкранное мобильное меню - ПРЕМИАЛЬНЫЙ APPLE STYLE */
 .mobile-menu {
   position: fixed;
   top: 64px;
@@ -871,22 +901,43 @@ body {
   bottom: 0;
   width: 100%;
   background: rgba(15, 15, 15, 0.98);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
   z-index: 999;
-  animation: slideDown 0.35s cubic-bezier(0.32, 0.72, 0, 1);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  will-change: transform, opacity;
 }
 
-@keyframes slideDown {
+/* Анимация появления меню */
+.mobile-menu-enter {
+  animation: menuSlideIn 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* Анимация исчезновения меню */
+.mobile-menu-exit {
+  animation: menuSlideOut 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+@keyframes menuSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-24px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes menuSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.98);
   }
 }
 
@@ -894,67 +945,103 @@ body {
 .mobile-menu-nav {
   display: flex;
   flex-direction: column;
-  padding: 48px 20px 32px;
-  gap: 4px;
+  padding: 56px 20px 40px;
+  gap: 6px;
   max-width: 480px;
   margin: 0 auto;
 }
 
-/* Ссылки в мобильном меню - APPLE STYLE */
+/* Ссылки в мобильном меню - ПРЕМИАЛЬНЫЙ APPLE STYLE */
 .mobile-menu-link {
   display: block;
   width: 100%;
-  padding: 16px 20px;
+  padding: 18px 24px;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
   text-align: center;
   font-size: 20px;
   font-weight: 500;
   text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 14px;
   cursor: pointer;
-  min-height: 52px;
+  min-height: 56px;
   position: relative;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
+  /* Плавное появление элементов */
+  animation: menuItemFadeIn 0.4s cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  will-change: transform, background-color;
+}
+
+@keyframes menuItemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobile-menu-link::before {
   display: none;
 }
 
-.mobile-menu-link:active {
-  background: rgba(218, 164, 40, 0.12);
-  color: rgb(218, 164, 40);
-  transform: scale(0.97);
+/* Hover эффект для устройств с мышью */
+@media (hover: hover) {
+  .mobile-menu-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.02);
+  }
 }
 
-/* Кнопка Telegram в мобильном меню - APPLE STYLE */
+/* Active состояние - премиальное */
+.mobile-menu-link:active {
+  background: rgba(218, 164, 40, 0.15);
+  color: rgb(218, 164, 40);
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* Кнопка Telegram в мобильном меню - ПРЕМИАЛЬНЫЙ APPLE STYLE */
 .mobile-menu-telegram {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  padding: 16px 20px;
-  margin-top: 28px;
+  padding: 18px 24px;
+  margin-top: 32px;
   background: linear-gradient(135deg, #0088ff 0%, #0066cc 100%);
   color: #FFFFFF;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
-  border-radius: 12px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(0, 136, 255, 0.35);
-  min-height: 52px;
-  letter-spacing: -0.2px;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 136, 255, 0.4);
+  min-height: 56px;
+  letter-spacing: -0.3px;
+  /* Плавное появление с задержкой */
+  animation: menuItemFadeIn 0.4s cubic-bezier(0.32, 0.72, 0, 1) backwards;
+  will-change: transform, box-shadow;
 }
 
+/* Hover эффект для Telegram кнопки */
+@media (hover: hover) {
+  .mobile-menu-telegram:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 136, 255, 0.5);
+  }
+}
+
+/* Active состояние для Telegram кнопки */
 .mobile-menu-telegram:active {
-  transform: scale(0.97);
-  background: linear-gradient(135deg, #0077ee 0%, #0055bb 100%);
-  box-shadow: 0 2px 8px rgba(0, 136, 255, 0.3);
+  transform: scale(0.98);
+  box-shadow: 0 4px 12px rgba(0, 136, 255, 0.35);
+  transition-duration: 0.1s;
 }
 
 
@@ -1005,6 +1092,16 @@ body {
   line-height: 1;
   vertical-align: baseline; /* Выравнивание по базовой линии */
   min-width: 6px;
+}
+
+/* Мобильная буква "i" БЕЗ шестеренки */
+.logo-i-mobile {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: baseline;
 }
 
 /* Буква "ı" БЕЗ точки (Unicode U+0131) */
@@ -1115,6 +1212,10 @@ body {
     height: 24px;
   }
   
+  .logo-i-mobile {
+    font-size: 24px;
+  }
+  
   .logo-i-letter {
     font-size: 24px;
   }
@@ -1137,6 +1238,10 @@ body {
   
   .logo-i-custom {
     height: 22px;
+  }
+  
+  .logo-i-mobile {
+    font-size: 22px;
   }
   
   .logo-i-letter {
@@ -1163,6 +1268,10 @@ body {
     height: 20px;
   }
   
+  .logo-i-mobile {
+    font-size: 20px;
+  }
+  
   .logo-i-letter {
     font-size: 20px;
   }
@@ -1185,6 +1294,10 @@ body {
   
   .logo-i-custom {
     height: 18px;
+  }
+  
+  .logo-i-mobile {
+    font-size: 18px;
   }
   
   .logo-i-letter {
@@ -1212,6 +1325,10 @@ body {
     height: 17px;
   }
   
+  .logo-i-mobile {
+    font-size: 17px;
+  }
+  
   .logo-i-letter {
     font-size: 17px;
   }
@@ -1228,6 +1345,22 @@ body {
 
 /* Оптимизация белого свечения [AI] для мобильных устройств */
 @media (max-width: 768px) {
+  /* КРИТИЧЕСКИ ВАЖНО: ПОЛНОЕ СКРЫТИЕ КОНТЕЙНЕРА С ШЕСТЕРЕНКОЙ НА МОБИЛЬНЫХ */
+  .logo-i-custom {
+    display: none !important;
+  }
+  
+  /* СКРЫТИЕ ШЕСТЕРЕНКИ НА МОБИЛЬНЫХ - ПОКАЗЫВАЕМ ОБЫЧНУЮ БУКВУ "i" */
+  .logo-gear {
+    display: none !important;
+  }
+  
+  /* Корректируем позицию буквы "i" без шестеренки */
+  .logo-i-letter {
+    position: relative;
+    top: 0;
+  }
+  
   .logo-ai {
     /* Немного уменьшаем интенсивность белого свечения на mobile */
     text-shadow: 

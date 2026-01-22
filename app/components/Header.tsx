@@ -5,6 +5,7 @@ import { FaTelegram, FaBars, FaTimes } from "react-icons/fa";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Блокировка скролла при открытом меню
   useEffect(() => {
@@ -18,11 +19,26 @@ export default function Header() {
     };
   }, [mobileMenuOpen]);
 
+  // Плавное открытие меню
+  const openMenu = () => {
+    setMobileMenuOpen(true);
+    setIsAnimating(true);
+  };
+
+  // Плавное закрытие меню
+  const closeMenu = () => {
+    setIsAnimating(false);
+    // Ждем завершения анимации перед удалением из DOM
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+    }, 350); // Длительность анимации
+  };
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setMobileMenuOpen(false);
+      closeMenu();
     }
   };
 
@@ -43,10 +59,13 @@ export default function Header() {
           >
             <span className="logo-text">
               <span className="logo-base">Romar</span>
-              <span className="logo-i-custom">
+              {/* На десктопе (>= 768px): "ı" с шестеренкой */}
+              <span className="logo-i-custom hidden md:inline-block">
                 <span className="logo-i-letter">ı</span>
                 <span className="logo-gear">⚙</span>
               </span>
+              {/* На мобильных (< 768px): обычная "i" */}
+              <span className="logo-i-mobile md:hidden">i</span>
               <span className="logo-base">o</span>
               <span className="logo-ai">[AI]</span>
             </span>
@@ -98,7 +117,7 @@ export default function Header() {
         {/* ГАМБУРГЕР - СПРАВА (только мобильные < 768px) */}
         <div className="header-mobile md:hidden">
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => mobileMenuOpen ? closeMenu() : openMenu()}
             className="hamburger-button"
             aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={mobileMenuOpen}
@@ -108,40 +127,44 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ПОЛНОЭКРАННОЕ МОБИЛЬНОЕ МЕНЮ */}
+      {/* ПОЛНОЭКРАННОЕ МОБИЛЬНОЕ МЕНЮ - APPLE STYLE */}
       {mobileMenuOpen && (
         <>
-          {/* Overlay для закрытия меню при клике вне */}
+          {/* Overlay с плавным появлением */}
           <div 
-            className="mobile-menu-overlay"
-            onClick={() => setMobileMenuOpen(false)}
+            className={`mobile-menu-overlay ${isAnimating ? 'mobile-menu-overlay-enter' : 'mobile-menu-overlay-exit'}`}
+            onClick={closeMenu}
             aria-hidden="true"
           />
           
-          {/* Само меню */}
-          <div className="mobile-menu">
+          {/* Само меню с плавным появлением */}
+          <div className={`mobile-menu ${isAnimating ? 'mobile-menu-enter' : 'mobile-menu-exit'}`}>
             <nav className="mobile-menu-nav">
               <button
                 onClick={() => scrollToSection("about")}
                 className="mobile-menu-link"
+                style={{ animationDelay: '0.05s' }}
               >
                 О себе
               </button>
               <button
                 onClick={() => scrollToSection("services")}
                 className="mobile-menu-link"
+                style={{ animationDelay: '0.1s' }}
               >
                 Услуги
               </button>
               <button
                 onClick={() => scrollToSection("cases")}
                 className="mobile-menu-link"
+                style={{ animationDelay: '0.15s' }}
               >
                 Кейсы
               </button>
               <button
                 onClick={() => scrollToSection("contacts")}
                 className="mobile-menu-link"
+                style={{ animationDelay: '0.2s' }}
               >
                 Контакты
               </button>
@@ -153,6 +176,7 @@ export default function Header() {
                 rel="noopener noreferrer"
                 className="mobile-menu-telegram"
                 aria-label="Написать в Telegram"
+                style={{ animationDelay: '0.25s' }}
               >
                 <FaTelegram className="text-xl" />
                 Написать в Telegram
