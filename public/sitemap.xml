@@ -3,7 +3,8 @@
     xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://romarioai.ru</loc>
+    <lastmod>2026-01-25</lastmod>
     <priority>1.0</priority>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
   </url>
 </urlset>

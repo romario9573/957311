@@ -15,6 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://romarioai.ru'),
   title: "AI-разработчик | Внедрение ИИ в бизнес | Обучение ИИ",
   description:
     "Профессиональная разработка AI-агентов и внедрение искусственного интеллекта в бизнес-процессы. Обучение работе с ИИ-инструментами. Автоматизация и оптимизация с помощью AI.",
@@ -33,15 +34,28 @@ export const metadata: Metadata = {
     "внедрение ИИ",
     "обучение ИИ",
   ],
-  authors: [{ name: "[Ваше Имя]" }],
+  authors: [{ name: "Роман" }],
+  creator: "Роман",
+  publisher: "Роман",
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://romarioai.ru',
   },
   openGraph: {
     title: "AI-разработчик | Внедрение ИИ в бизнес | Обучение ИИ",
     description:
       "Профессиональная разработка AI-агентов и внедрение искусственного интеллекта в бизнес-процессы. Обучение работе с ИИ-инструментами. Автоматизация и оптимизация с помощью AI.",
+    url: 'https://romarioai.ru',
+    siteName: 'Romario[AI]',
     type: "website",
     locale: "ru_RU",
   },
@@ -51,13 +65,17 @@ export const metadata: Metadata = {
     description:
       "Профессиональная разработка AI-агентов и внедрение искусственного интеллекта в бизнес-процессы. Обучение работе с ИИ-инструментами. Автоматизация и оптимизация с помощью AI.",
   },
+  verification: {
+    yandex: '1d1cafc5922356c8',
+  },
 };
 
-// JSON-LD структурированные данные
+// JSON-LD структурированные данные для SEO
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "[Ваше Имя]",
+  name: "Роман",
+  url: "https://romarioai.ru",
   jobTitle: "AI-разработчик",
   description:
     "Разработка AI-агентов, внедрение ИИ в бизнес, обучение работе с искусственным интеллектом",
@@ -71,6 +89,16 @@ const jsonLd = {
     "Внедрение ИИ",
     "Обучение ИИ",
   ],
+  sameAs: [
+    "https://t.me/m/V0FK56BWNTIy"
+  ],
+  offers: {
+    "@type": "AggregateOffer",
+    offerCount: "20",
+    lowPrice: "500",
+    highPrice: "50000",
+    priceCurrency: "RUB"
+  }
 };
 
 export default function RootLayout({
