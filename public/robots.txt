@@ -1,0 +1,31 @@
+# robots.txt для romarioai.ru
+# AI-разработчик | Внедрение ИИ в бизнес
+
+# Разрешаем всем поисковым системам индексировать весь сайт
+User-agent: *
+Allow: /
+
+# Запрещаем индексацию служебных файлов Next.js
+Disallow: /_next/static/
+Disallow: /api/
+
+# Ссылка на sitemap для поисковых систем
+Sitemap: https://romarioai.ru/sitemap.xml
+
+# Специальные правила для основных поисковых систем
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Яндекс
+User-agent: Yandex
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Частота сканирования (для Яндекса)
+# Crawl-delay: 0 означает максимальную скорость сканирования
+Host: https://romarioai.ru
